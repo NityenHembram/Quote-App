@@ -94,6 +94,8 @@ dependencies {
     // See Add the KSP plugin to your project
     ksp(libs.androidx.room.compiler)
 
+    implementation(libs.retrofit.gson.convertor)
+
 
 //    Workmaneger
     implementation(libs.work.manager)

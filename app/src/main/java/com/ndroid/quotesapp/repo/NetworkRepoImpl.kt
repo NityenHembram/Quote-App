@@ -1,5 +1,6 @@
 package com.ndroid.quotesapp.repo
 
+import android.util.Log
 import com.ndroid.quotesapp.models.QuoteDto
 import com.ndroid.quotesapp.models.QuoteModel
 import com.ndroid.quotesapp.networks.ApiInterface
@@ -8,6 +9,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.path
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
@@ -17,11 +19,12 @@ import javax.inject.Inject
 
 
 class NetworkRepoImpl @Inject constructor(private val client: HttpClient):NetworkRepo {
-    override suspend fun getQuoteFromApi(): Flow<QuoteDto> {
-        return client.get{
-            url{
+    override suspend fun getQuoteFromApi(): Flow<QuoteDto> = flow {
+        val quote = client.get {
+            url {
                 path(ApiInterface.RANDOM_QUOTES)
             }
-        }.body()
+        }.body<QuoteDto>()
+        emit(quote)
     }
 }

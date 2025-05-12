@@ -7,7 +7,7 @@ package com.ndroid.quotesapp.networks
 
 
 object ApiInterface {
-   val  BASE_API = "https://dummyjson.com"
+   val  BASE_API = "dummyjson.com"
     val RANDOM_QUOTES = "quotes/random"
 
 }

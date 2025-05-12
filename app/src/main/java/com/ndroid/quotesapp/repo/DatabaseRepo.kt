@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface DatabaseRepo {
-   suspend fun insertQuote(quoteModel: QuoteModel)
-   suspend fun getAllQuote(): Flow<List<QuoteModel>>
+   suspend fun getQuote()
+   fun getAllQuote(): Flow<List<QuoteModel>>
    suspend fun setupPeriodWorkRequest()
 }

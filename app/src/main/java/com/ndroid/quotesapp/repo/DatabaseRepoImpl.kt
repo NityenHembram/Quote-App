@@ -12,6 +12,7 @@ import androidx.work.WorkManager
 import com.ndroid.quotesapp.database.DatabaseDao
 import com.ndroid.quotesapp.models.QuoteModel
 import com.ndroid.quotesapp.worker.FetchWorker
+import com.ndroid.quotesapp.worker.NotificationWorker
 import com.ndroid.quotesapp.worker.PeriodicWork
 import kotlinx.coroutines.flow.Flow
 import java.time.Duration
@@ -28,21 +29,19 @@ class DatabaseRepoImpl @Inject constructor(
     private val workManager: WorkManager,
     private val dao: DatabaseDao
 ) : DatabaseRepo {
-
     //    Here we are starting workmanager which is handleing the network request and saving into the database
-    override suspend fun insertQuote(quoteModel: QuoteModel) {
+    override suspend fun getQuote() {
         val constrain = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
         val workRequest = OneTimeWorkRequestBuilder<FetchWorker>()
             .setConstraints(constrain)
             .build()
-        workManager.enqueue(workRequest)
-
+        val notificationWork = OneTimeWorkRequestBuilder<NotificationWorker>().build()
+        workManager.beginWith(workRequest).then(notificationWork).enqueue()
     }
 
-    override suspend fun getAllQuote(): Flow<List<QuoteModel>> {
-        return dao.getAllQuote()
+    override fun getAllQuote(): Flow<List<QuoteModel>> =  dao.getAllQuote()
 
-    }
+
 
     override suspend fun setupPeriodWorkRequest() {
         val constrain = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
@@ -54,6 +53,4 @@ class DatabaseRepoImpl @Inject constructor(
             workRequest
         )
     }
-
-
 }

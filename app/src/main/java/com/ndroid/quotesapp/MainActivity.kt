@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ndroid.quotesapp.screens.QuoteListScreen
 import com.ndroid.quotesapp.ui.theme.QuotesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,10 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuotesAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    QuoteListScreen()
                 }
             }
         }

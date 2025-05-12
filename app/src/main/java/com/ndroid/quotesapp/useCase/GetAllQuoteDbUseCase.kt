@@ -10,5 +10,5 @@ import javax.inject.Inject
 
 
 class GetAllQuoteDbUseCase @Inject constructor(private  val repo:DatabaseRepo) {
-    suspend operator fun invoke() = repo.getAllQuote()
+     operator fun invoke() = repo.getAllQuote()
 }

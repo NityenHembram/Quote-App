@@ -19,6 +19,6 @@ interface DatabaseDao {
     suspend fun insertQuote(quoteModel: QuoteModel)
 
     @Query("SELECT * FROM QuoteModel Order by time DESC")
-    suspend fun getAllQuote():Flow<List<QuoteModel>>
+    fun getAllQuote():Flow<List<QuoteModel>>
 
 }
